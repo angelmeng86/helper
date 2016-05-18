@@ -1,8 +1,29 @@
 angular.module('starter.controllers', [])
 
-.controller('WorkCtrl', function($scope) {
-  $scope.onClickBtn = function(number){
-    alert("I'm No." + number);
+.controller('WorkCtrl', function($scope, $ionicModal) {
+  $ionicModal.fromTemplateUrl('templates/new-work.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.createWork = function(u) {        
+    
+    $scope.modal.hide();
+  };
+
+  $scope.selectDate = function() {        
+    var options = {
+            date: new Date(),
+            mode: 'date'
+        };
+    datePicker.show(options, function(date){
+        if(date != 'Invalid Date') {
+            console.log("Date came" + date);
+        } else {
+            console.log(date);
+        }
+    });
   };
 })
 
