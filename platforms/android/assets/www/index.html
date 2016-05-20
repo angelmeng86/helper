@@ -19,13 +19,15 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
-    <script src="https://cdn1.lncld.net/static/js/av-mini-0.6.4.js"></script>
+    <script src="lib/leancloud-jssdk.js/dist/av-core-mini.js"></script>
     <!-- your app's js -->
+    <script src="js/util.js"></script>
+    <script src="js/init.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
   </head>
-  <body ng-app="starter">
+  <body ng-app="starter" class="platform-android platform-cordova platform-webview">
     <!--
       The nav bar that will be updated as we navigate between views.
     -->

@@ -1,8 +1,5 @@
 // Ionic Starter App
 
-// 初始化 param1：应用 id、param2：应用 key
-AV.initialize('vBV3UIdIQAXqLOIDT2WYgVnB-gzGzoHsz', 'hGKL7DRGL3YkjahwGLY8ecf2');
-
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'

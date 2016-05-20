@@ -5,17 +5,23 @@
 </ion-header-bar>
 <ion-content class="padding">
 <div class="list">
-	<label class="item item-input item-button-right">
-		<span class="input-label">加班日期</span>
-		<button class="button" ng-click="selectDate()">选择</button>
+	<label class="item item-input" ng-click="selectDate('date')">
+		<span class="input-label">加班日期：</span>
+		<span class="item-note">
+      {{ newWork.date.Format("yyyy年MM月dd日") }}
+    </span>
 	</label>
-	<label class="item item-input">
-		<span class="input-label">起始时间</span>
-		<input ng-model="newWork.begin" type="text">
+	<label class="item item-input" ng-click="selectTime('begintime')">
+		<span class="input-label">起始时间：</span>
+		<span class="item-note">
+      {{ newWork.begintime.Format("hh:mm:ss") }}
+    </span>
 	</label>
-	<label class="item item-input">
-		<span class="input-label">结束时间</span>
-		<input ng-model="newWork.end" type="text">
+	<label class="item item-input" ng-click="selectTime('endtime')">
+		<span class="input-label">结束时间：</span>
+		<span class="item-note">
+      {{ newWork.endtime.Format("hh:mm:ss") }}
+    </span>
 	</label>
 	<button class="button button-full button-positive" ng-click="createWork(newWork)">创建</button>
 </div>

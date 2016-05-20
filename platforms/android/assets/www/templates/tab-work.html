@@ -1,11 +1,17 @@
 <ion-view view-title="Dashboard">
   <ion-nav-buttons side="left">
-      <button class="button" ng-click="modal.show()">
+      <button class="button" ng-click="showModal()">
         加班
       </button>
   </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+      <button class="button" ng-click="test()">
+        Test
+      </button>
+  </ion-nav-buttons>
   <ion-content class="padding">
-    <ion-refresher></ion-refresher>
-    
+    <ion-refresher pulling-text="Pull to refresh..."
+    on-refresh="doRefresh()" ></ion-refresher>
+
   </ion-content>
 </ion-view>
