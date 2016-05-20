@@ -89,6 +89,11 @@ angular.module('starter.controllers', [])
     $scope.modal.show();
   };
 
+  $scope.$on('$destroy', function() {
+    console.log('Destroy...');
+    $scope.modal.remove();
+  });
+
   $scope.test = function() {
     var TestObject = AV.Object.extend('TestObject');
     var testObject = new TestObject();
@@ -189,4 +194,50 @@ angular.module('starter.controllers', [])
   $scope.settings = {
     enableFriends: true
   };
+})
+.controller('loginCtrl', function($scope, $ionicLoading) {
+  $scope.login = function(username, password) {
+      $ionicLoading.show({
+        template: 'Loading...'
+      });
+      console.log('username: ' + username + ' password:' + password);
+      AV.User.logIn(username, password).then(function() {
+        // 成功了，现在可以做其他事情了
+        $ionicLoading.hide();
+        $location.path("/tab/work");
+      }, function(err) {
+        // 失败了
+        $ionicLoading.hide();
+        console.log('Failed to login, err: ' + err.message);
+      });
+  }
+})
+
+.controller('signupCtrl', function($scope) {
+  $scope.notequal = function(password, password2) {
+      if(password == password2) {
+          return true;
+      }
+      return false;
+  }
+
+  $scope.signup = function(username, email, password, password2) {
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
+    var user = new AV.User();
+    user.set('username', username);
+    user.set('password', password);
+    user.set('email', email);
+
+    user.signUp().then(function(user) {
+      // 注册成功，可以使用了
+      $ionicLoading.hide();
+      console.log(user);
+    }, function(error) {
+      // 失败了
+      $ionicLoading.hide();
+      console.log('signUp Error: ' + error.code + ' ' + error.message);
+    });
+  }
 });

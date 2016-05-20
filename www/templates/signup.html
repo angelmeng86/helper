@@ -1,0 +1,30 @@
+<ion-view title="帐号注册">
+    <ion-content padding="true" class="has-header">
+        <form class="list" name="signForm" novalidate>
+            <ion-list>
+                <label class="item item-input">
+                    <span class="input-label">用户名</span>
+                    <input type="text" ng-model="username" placeholder="">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">邮箱</span>
+                    <input type="email" ng-model="email" name="email" placeholder="">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">密码</span>
+                    <input type="text" ng-model="password" placeholder="">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">确认密码</span>
+                    <input type="text" ng-model="password2" placeholder="">
+                </label>
+                <span ng-show="signForm.username.$error.required">用户名是必须的。</span>
+                <span ng-show="signForm.email.$error.email">非法的邮箱。</span>
+                <span ng-show="signForm.password.$error.required">请输入密码。</span>
+                <span ng-show="signForm.password2.$error.required">请输入确认密码。</span>
+                <!--<span ng-show="notequal(password, password2)">输入的两次密码不一致。</span>-->
+            </ion-list>
+            <button class="button button-stable button-block" ng-click="signup(username, email, password, password2)">注册</button>
+        </form>
+    </ion-content>
+</ion-view>

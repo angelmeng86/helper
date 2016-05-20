@@ -1,0 +1,19 @@
+<ion-view title="我的助手">
+    <ion-content padding="true" class="has-header">
+        <form class="list">
+            <ion-list>
+                <label class="item item-input">
+                    <span class="input-label">用户名</span>
+                    <input type="text" ng-model="username" placeholder="">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">密码</span>
+                    <input type="password" ng-model="password" placeholder="">
+                </label>
+            </ion-list>
+            <div class="spacer" style="height: 40px;"></div>
+            <button class="button button-stable  button-block" ng-click="login(username, password)">登录</button>
+            <a href="#/signup"  class="button button-positive  button-block button-clear">创建帐号</a>
+        </form>
+    </ion-content>
+</ion-view>
