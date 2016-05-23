@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('WorkCtrl', function($scope, $ionicModal, $cordovaDatePicker, $ionicLoading) {
+.controller('WorkCtrl', function($scope, $ionicModal, $cordovaDatePicker, $ionicLoading, $ionicScrollDelegate) {
   $ionicModal.fromTemplateUrl('templates/new-work.html', {
     scope: $scope
   }).then(function(modal) {
@@ -89,6 +89,11 @@ angular.module('starter.controllers', [])
     $scope.modal.show();
   };
 
+  $scope.$on('$destroy', function() {
+    console.log('Destroy...');
+    $scope.modal.remove();
+  });
+
   $scope.test = function() {
     var TestObject = AV.Object.extend('TestObject');
     var testObject = new TestObject();
@@ -100,6 +105,17 @@ angular.module('starter.controllers', [])
       }
     });
   };
+
+  $scope.remove = function remove(ot) {
+    ot.destroy().then(function() {
+      // 删除成功
+      console.log('delete success.');
+      $scope.doRefresh();
+    }, function(error) {
+      // 失败
+      console.log('delete err:' + error.message);
+    });
+  }
 
   $scope.createWork = function(newWork) {
     // if($scope.newWork['date'] == null ||
@@ -135,6 +151,7 @@ angular.module('starter.controllers', [])
       $ionicLoading.hide();
       $scope.modal.hide();
       console.log('New object created with objectId: ' + obj.id);
+      $scope.doRefresh();
     }, function(err) {
       // 失败之后执行其他逻辑
       // error 是 AV.Error 的实例，包含有错误码和描述信息.
@@ -185,8 +202,70 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('AccountCtrl', function($scope, $state) {
   $scope.settings = {
     enableFriends: true
   };
+  $scope.logout = function() {
+    AV.User.logOut();
+    $state.go("login");
+    console.log('logout ...');
+  }
+})
+.controller('loginCtrl', function($scope, $ionicLoading, $state) {
+  var user = AV.User.current();
+  if(user != null) {
+    console.log('user:' + user.get('username'));
+    $state.go("tab.work");
+  }
+
+  $scope.login = function(username, password) {
+      $ionicLoading.show({
+        template: 'Loading...'
+      });
+      console.log('username: ' + username + ' password:' + password);
+      AV.User.logIn(username, password).then(function() {
+        // 成功了，现在可以做其他事情了
+        $ionicLoading.hide();
+        $state.go("tab.work");
+      }, function(err) {
+        // 失败了
+        $ionicLoading.hide();
+        alert(err.message);
+        console.log('Failed to login, err: ' + err.message);
+      });
+  }
+})
+
+.controller('signupCtrl', function($scope, $ionicLoading) {
+  $scope.isShow = false;
+
+  $scope.signup = function(username, email, password, password2) {
+
+    if(password != password2) {
+      $scope.isShow = true;
+      console.log('password notequal');
+      return;
+    }
+    $scope.isShow = false;
+
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
+    var user = new AV.User();
+    user.set('username', username);
+    user.set('password', password);
+    user.set('email', email);
+
+    user.signUp().then(function(user) {
+      // 注册成功，可以使用了
+      $ionicLoading.hide();
+      console.log('sign success');
+      $ionicHistory.goBack();
+    }, function(error) {
+      // 失败了
+      $ionicLoading.hide();
+      console.log('signUp Error: ' + error.code + ' ' + error.message);
+    });
+  }
 });

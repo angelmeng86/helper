@@ -9,10 +9,10 @@
         Test
       </button>
   </ion-nav-buttons>
-  <ion-content>
+  <ion-content delegate-handle="workScroll">
     <ion-refresher pulling-text="下拉刷新..."
     on-refresh="doRefresh()" ></ion-refresher>
-    <ion-list scroll="false">
+    <ion-list>
       <div class="item item-divider" ng-click="selectMonth()">
         {{ curMonth.Format("yyyy年MM月") }} : {{ totalHours }}小时
       </div>

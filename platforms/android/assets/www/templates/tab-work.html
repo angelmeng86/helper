@@ -9,14 +9,14 @@
         Test
       </button>
   </ion-nav-buttons>
-  <ion-content>
+  <ion-content delegate-handle="workScroll">
     <ion-refresher pulling-text="下拉刷新..."
     on-refresh="doRefresh()" ></ion-refresher>
     <ion-list>
       <div class="item item-divider" ng-click="selectMonth()">
         {{ curMonth.Format("yyyy年MM月") }} : {{ totalHours }}小时
       </div>
-      <ion-item class="item-remove-animate item-icon-left" ng-repeat="ot in otlist">
+      <ion-item class="item-remove-animate item-icon-left" collection-repeat="ot in otlist">
         <i class="icon ion-ios-timer-outline"></i>
         <h2>{{ot.get('begin').Format("yyyy年MM月dd日")}}</h2>
         <p>{{ot.get('begin').Format("hh:mm:ss")}} - {{ot.get('end').Format("hh:mm:ss")}} ({{ot.get('hours')}}小时)</p>
